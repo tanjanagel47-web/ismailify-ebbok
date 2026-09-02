@@ -24,8 +24,8 @@ export function SocialLinks({
           <a
             href={s.href}
             target="_blank"
-            rel="noopener"
-            referrerPolicy="strict-origin-when-cross-origin"
+            rel="noopener noreferrer"
+            referrerPolicy="no-referrer"
             aria-label={`Ismailify on ${s.name}`}
             title={s.name}
             className={cn(
