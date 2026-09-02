@@ -23,8 +23,8 @@ export function SocialLinks({
         <li key={s.name}>
           <a
             href={s.href}
-            target="_top"
-            rel="external"
+            target="_blank"
+            rel="noopener"
             referrerPolicy="strict-origin-when-cross-origin"
             aria-label={`Ismailify on ${s.name}`}
             title={s.name}
