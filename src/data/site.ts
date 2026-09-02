@@ -1,7 +1,10 @@
 export const EMAIL = "ismaildigital929@gmail.com";
 
 export const SOCIALS = [
-  { name: "Facebook", href: "https://www.facebook.com/profile.php?id=61594000101290" },
+  {
+    name: "Facebook",
+    href: "https://www.facebook.com/people/Ismai-Lify/pfbid02ENEjyHpRLQxjshhU2uTkzJ39JW5FRKXiZ6rKh6r7hee5uDC2vHarK4Za7RT8dtXBl/",
+  },
   { name: "Instagram", href: "https://www.instagram.com/ismai_lify/" },
   { name: "X", href: "https://x.com/Ismailify" },
   { name: "Pinterest", href: "https://www.pinterest.com/diamondismail950/" },
