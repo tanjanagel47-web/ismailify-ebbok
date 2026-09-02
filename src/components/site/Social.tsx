@@ -10,6 +10,18 @@ const MONOGRAM: Record<string, string> = {
   TikTok: "tt",
 };
 
+function openSocialProfile(event: React.MouseEvent<HTMLAnchorElement>, href: string) {
+  event.preventDefault();
+
+  const newTab = window.open(href, "_blank");
+  if (newTab) {
+    newTab.opener = null;
+    return;
+  }
+
+  window.location.assign(href);
+}
+
 export function SocialLinks({
   variant = "light",
   className,
@@ -24,7 +36,9 @@ export function SocialLinks({
           <a
             href={s.href}
             target="_blank"
-            rel="noopener"
+            rel="external noopener"
+            referrerPolicy="strict-origin-when-cross-origin"
+            onClick={(event) => openSocialProfile(event, s.href)}
             aria-label={`Ismailify on ${s.name}`}
             title={s.name}
             className={cn(
