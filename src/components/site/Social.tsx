@@ -24,7 +24,7 @@ export function SocialLinks({
           <a
             href={s.href}
             target="_blank"
-            rel="noopener noreferrer"
+            rel="noopener"
             aria-label={`Ismailify on ${s.name}`}
             title={s.name}
             className={cn(
