@@ -1,4 +1,5 @@
 export const EMAIL = "ismaildigital929@gmail.com";
+export const TAGLINE = "Style. Confidence. Identity.";
 
 export const SOCIALS = [
   {
@@ -14,65 +15,34 @@ export const SOCIALS = [
 
 export const NAV = [
   { label: "Home", to: "/" },
+  { label: "Shop", to: "/shop" },
   { label: "About", to: "/about" },
-  { label: "Services", to: "/services" },
-  { label: "Portfolio", to: "/portfolio" },
-  { label: "Testimonials", to: "/testimonials" },
-  { label: "FAQ", to: "/faq" },
   { label: "Contact", to: "/contact" },
-] as const;
-
-export const PROCESS = [
-  {
-    step: "01",
-    title: "Discovery",
-    text: "We discuss your idea, audience, goals, and scope so the project starts with total clarity.",
-  },
-  {
-    step: "02",
-    title: "Plan & Outline",
-    text: "A clear structure, chapter outline, and timeline are agreed before any production work begins.",
-  },
-  {
-    step: "03",
-    title: "Production",
-    text: "Writing, editing, formatting, or design work is completed with regular progress updates.",
-  },
-  {
-    step: "04",
-    title: "Review & Revisions",
-    text: "You review the draft and request changes. Refinements continue until the work reads right.",
-  },
-  {
-    step: "05",
-    title: "Delivery & Publishing Prep",
-    text: "Final files are delivered in the formats you need, ready for Kindle, EPUB, PDF, or print prep.",
-  },
 ] as const;
 
 export const WHY = [
   {
-    title: "Complete eBook Solution",
-    text: "Writing, editing, proofreading, formatting, cover design, conversion, and publishing preparation under one roof.",
+    title: "Considered Design",
+    text: "Every piece starts as a sketch in-house — proportions, fabric, and finish are decided before anything is made.",
   },
   {
-    title: "Reader-First Quality",
-    text: "Every page is shaped around clarity, flow, and readability so your book keeps attention to the last chapter.",
+    title: "Premium Materials",
+    text: "Full-grain leathers, long-staple cottons, and wool blends chosen to look better after a year than on day one.",
   },
   {
-    title: "Platform-Ready Files",
-    text: "Files are prepared to meet Kindle, EPUB, and PDF requirements so your upload goes smoothly.",
+    title: "Fit That Holds",
+    text: "Patterns are graded across the full size run, so the silhouette stays true whichever size you take.",
   },
   {
-    title: "Clear Communication",
-    text: "Straightforward scope, honest timelines, and consistent updates from the first message to final delivery.",
+    title: "Complete Wardrobe",
+    text: "Shirts, trousers, shoes, belts, caps, and bags built to sit together as one coherent look.",
   },
   {
-    title: "Your Voice, Preserved",
-    text: "Ghostwriting and editing keep your tone intact — the book still sounds like you, only sharper.",
+    title: "Straightforward Service",
+    text: "Clear pricing, free delivery over $150, and a 30-day return window with no complicated conditions.",
   },
   {
-    title: "Revisions Included",
-    text: "Structured revision rounds are part of every project so the final file genuinely matches your vision.",
+    title: "Built to Last",
+    text: "Reinforced seams, sealed edges, and quiet hardware — durability treated as part of the design.",
   },
 ] as const;
