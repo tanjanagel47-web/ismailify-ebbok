@@ -1,25 +1,41 @@
+import { useState, type FormEvent } from "react";
 import { Link } from "@tanstack/react-router";
 import { Mail } from "lucide-react";
+import { toast } from "sonner";
 
-import { EMAIL, NAV } from "@/data/site";
-import { SERVICES } from "@/data/services";
+import { EMAIL, NAV, TAGLINE } from "@/data/site";
+import { CATEGORIES } from "@/data/shop";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { SocialLinks } from "./Social";
 
 export function Footer() {
+  const [email, setEmail] = useState("");
+
+  function subscribe(e: FormEvent) {
+    e.preventDefault();
+    if (!email.trim()) return;
+    toast.success("Thanks — you're on the list.");
+    setEmail("");
+  }
+
   return (
-    <footer className="surface-navy mt-24">
+    <footer className="surface-navy mt-20">
       <div className="container-page grid gap-12 py-16 md:grid-cols-2 lg:grid-cols-4">
-        <div className="lg:col-span-1">
-          <span className="font-display text-2xl font-semibold">Ismailify</span>
+        <div>
+          <span className="font-display text-xl font-semibold tracking-[0.18em] uppercase">
+            Ismailify
+          </span>
+          <p className="mt-3 text-sm tracking-[0.18em] text-primary uppercase">{TAGLINE}</p>
           <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/70">
-            Professional eBook expert helping authors, entrepreneurs, and businesses turn ideas and
-            manuscripts into polished, reader-ready books.
+            Modern menswear and accessories designed with intent — shirts, trousers, shoes, belts,
+            caps, and bags built to work together.
           </p>
           <SocialLinks variant="dark" className="mt-6" />
         </div>
 
         <nav aria-label="Footer navigation">
-          <h3 className="text-sm font-semibold tracking-wide text-white uppercase">Navigation</h3>
+          <h3 className="text-sm font-semibold tracking-wide text-white uppercase">Explore</h3>
           <ul className="mt-4 space-y-2.5">
             {NAV.map((item) => (
               <li key={item.label}>
@@ -31,20 +47,25 @@ export function Footer() {
                 </Link>
               </li>
             ))}
+            <li>
+              <Link to="/cart" className="text-sm text-white/70 transition-colors hover:text-white">
+                Cart
+              </Link>
+            </li>
           </ul>
         </nav>
 
-        <nav aria-label="Services">
-          <h3 className="text-sm font-semibold tracking-wide text-white uppercase">Services</h3>
+        <nav aria-label="Shop categories">
+          <h3 className="text-sm font-semibold tracking-wide text-white uppercase">Shop</h3>
           <ul className="mt-4 space-y-2.5">
-            {SERVICES.map((s) => (
-              <li key={s.slug}>
+            {CATEGORIES.map((c) => (
+              <li key={c.slug}>
                 <Link
-                  to="/services/$slug"
-                  params={{ slug: s.slug }}
+                  to="/category/$slug"
+                  params={{ slug: c.slug }}
                   className="text-sm text-white/70 transition-colors hover:text-white"
                 >
-                  {s.name}
+                  {c.name}
                 </Link>
               </li>
             ))}
@@ -52,31 +73,36 @@ export function Footer() {
         </nav>
 
         <div>
-          <h3 className="text-sm font-semibold tracking-wide text-white uppercase">Get in touch</h3>
+          <h3 className="text-sm font-semibold tracking-wide text-white uppercase">Newsletter</h3>
+          <p className="mt-4 text-sm leading-relaxed text-white/70">
+            New arrivals and private releases, straight to your inbox.
+          </p>
+          <form onSubmit={subscribe} className="mt-4 flex gap-2">
+            <Input
+              type="email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email address"
+              aria-label="Email address"
+              className="border-white/20 bg-white/10 text-white placeholder:text-white/50"
+            />
+            <Button type="submit">Join</Button>
+          </form>
           <a
             href={`mailto:${EMAIL}`}
-            className="mt-4 inline-flex items-center gap-2 text-sm break-all text-white/80 transition-colors hover:text-white"
+            className="mt-5 inline-flex items-center gap-2 text-sm break-all text-white/80 transition-colors hover:text-white"
           >
             <Mail className="h-4 w-4 shrink-0" />
             {EMAIL}
           </a>
-          <p className="mt-4 text-sm leading-relaxed text-white/70">
-            Share your project details and receive a clear scope, timeline, and quote before any
-            work begins.
-          </p>
-          <Link
-            to="/contact"
-            className="mt-5 inline-flex items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-          >
-            Start Your Project
-          </Link>
         </div>
       </div>
 
       <div className="border-t border-white/10">
         <div className="container-page py-6">
           <p className="text-center text-xs text-white/60">
-            © 2026 Ismailify. All Rights Reserved.
+            © 2026 ISMAILIFY. All Rights Reserved.
           </p>
         </div>
       </div>
