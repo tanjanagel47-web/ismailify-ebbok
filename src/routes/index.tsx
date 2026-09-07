@@ -1,33 +1,28 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, ShoppingBag, Star } from "lucide-react";
 
-import heroBook from "@/assets/hero-ebook.jpg";
+import heroFashion from "@/assets/hero-fashion.jpg";
+import promoBanner from "@/assets/promo-banner.jpg";
 import { Button } from "@/components/ui/button";
-import {
-  Section,
-  SectionHeading,
-  ProcessSteps,
-  FaqAccordion,
-  CTASection,
-} from "@/components/site/Sections";
-import { SERVICES } from "@/data/services";
+import { ProductCard } from "@/components/shop/ProductCard";
+import { Section, SectionHeading } from "@/components/site/Sections";
+import { CATEGORIES, PRODUCTS, byBadge } from "@/data/shop";
 import { WHY } from "@/data/site";
-import { FAQS, PORTFOLIO, TESTIMONIALS } from "@/data/content";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Ismailify — Professional eBook Writing, Editing & Publishing" },
+      { title: "ISMAILIFY — Elevate Your Everyday Style" },
       {
         name: "description",
         content:
-          "Complete professional eBook solutions: writing, ghostwriting, editing, proofreading, formatting, cover design, conversion, and publishing preparation.",
+          "ISMAILIFY menswear: premium shirts, trousers, shoes, belts, caps, and bags designed with intent. Style. Confidence. Identity.",
       },
-      { property: "og:title", content: "Ismailify — Professional eBook Expert" },
+      { property: "og:title", content: "ISMAILIFY — Elevate Your Everyday Style" },
       {
         property: "og:description",
         content:
-          "Turn your ideas into professional eBooks that get read. Writing, editing, formatting, conversion, and publishing preparation.",
+          "Modern menswear and accessories built to work together. Discover the new collection.",
       },
     ],
   }),
@@ -35,6 +30,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const bestSellers = byBadge("Best Seller").slice(0, 4);
+  const newArrivals = byBadge("New").slice(0, 4);
+
   return (
     <>
       {/* Hero */}
@@ -43,20 +41,22 @@ function Home() {
           aria-hidden
           className="pointer-events-none absolute top-[-10rem] right-[-8rem] h-[32rem] w-[32rem] rounded-full bg-primary/25 blur-3xl"
         />
-        <div className="container-page relative grid items-center gap-14 py-20 md:py-28 lg:grid-cols-2">
-          <div>
-            <p className="eyebrow mb-5">Professional eBook Expert</p>
+        <div className="container-page relative grid items-center gap-10 py-16 md:py-24 lg:grid-cols-2 lg:gap-14">
+          <div className="order-2 lg:order-1">
+            <p className="eyebrow mb-5">New Collection</p>
             <h1 className="text-4xl leading-[1.08] text-white md:text-5xl lg:text-6xl">
-              Turn Your Ideas Into Professional eBooks That Get Read.
+              Elevate Your Everyday Style.
             </h1>
             <p className="mt-6 max-w-xl text-base leading-relaxed text-white/75 md:text-lg">
-              From writing and editing to formatting, conversion, and publishing preparation,
-              Ismailify provides complete professional eBook solutions that transform ideas into
-              polished, reader-ready books.
+              Precision-cut menswear and refined accessories designed to work together — shirts,
+              trousers, shoes, belts, caps, and bags for the man who dresses with intent.
             </p>
             <div className="mt-9 flex flex-wrap gap-3">
               <Button asChild size="lg">
-                <Link to="/contact">Start Your Project</Link>
+                <Link to="/shop">
+                  <ShoppingBag className="mr-2 h-4 w-4" />
+                  Shop Now
+                </Link>
               </Button>
               <Button
                 asChild
@@ -64,72 +64,149 @@ function Home() {
                 variant="outline"
                 className="border-white/25 bg-transparent text-white hover:bg-white/10 hover:text-white"
               >
-                <Link to="/services">Explore Services</Link>
+                <Link to="/category/shirts">Explore Shirts</Link>
               </Button>
             </div>
             <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/60">
-              <li>Writing &amp; Ghostwriting</li>
-              <li>Editing &amp; Proofreading</li>
-              <li>Formatting &amp; Conversion</li>
-              <li>Covers &amp; Publishing</li>
+              <li>Free delivery over $150</li>
+              <li>30-day returns</li>
+              <li>In-house design</li>
+              <li>Premium materials</li>
             </ul>
           </div>
 
-          <div className="relative">
+          <div className="relative order-1 lg:order-2">
             <div
               aria-hidden
               className="absolute inset-6 rounded-[2rem] bg-primary/20 blur-2xl"
             />
             <img
-              src={heroBook}
-              alt="Professional eBook shown as a navy hardcover book beside a tablet displaying a formatted chapter"
+              src={heroFashion}
+              alt="ISMAILIFY model in a crisp white shirt and tailored navy trousers against a deep navy backdrop"
               width={1280}
-              height={1280}
+              height={1600}
               className="relative w-full rounded-3xl border border-white/10 bg-white object-cover shadow-2xl"
             />
           </div>
         </div>
       </section>
 
-      {/* Services */}
+      {/* Featured Collections */}
       <Section>
         <SectionHeading
-          eyebrow="What I Do"
-          title="Complete eBook Services"
-          text="Every stage of the eBook journey, handled with the same standard of care — book one service or the full process."
+          eyebrow="Shop by Category"
+          title="Featured Collections"
+          text="Six curated categories, each designed as a chapter of one coherent wardrobe."
+        />
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {CATEGORIES.map((c) => (
+            <Link
+              key={c.slug}
+              to="/category/$slug"
+              params={{ slug: c.slug }}
+              className="group relative aspect-[4/5] overflow-hidden rounded-2xl"
+            >
+              <img
+                src={c.image}
+                alt={c.name}
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/80 via-navy/20 to-transparent" />
+              <div className="absolute bottom-0 left-0 p-6 text-white">
+                <p className="text-xs font-bold tracking-[0.16em] text-primary uppercase">
+                  {c.short}
+                </p>
+                <h3 className="mt-1 text-2xl">{c.name}</h3>
+                <p className="mt-2 max-w-xs text-sm text-white/80">{c.blurb}</p>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold">
+                  Shop {c.short}
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </Section>
+
+      {/* Best Sellers */}
+      <Section muted>
+        <SectionHeading
+          eyebrow="Most Loved"
+          title="Best Sellers"
+          text="The pieces customers return for — refined staples that earn their place in any wardrobe."
         />
         <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((s) => (
-            <Link
-              key={s.slug}
-              to="/services/$slug"
-              params={{ slug: s.slug }}
-              className="card-premium group flex flex-col p-7"
-            >
-              <h3 className="text-lg">{s.name}</h3>
-              <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">
-                {s.tagline}
-              </p>
-              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
-                Learn more
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            </Link>
+          {bestSellers.map((p) => (
+            <ProductCard key={p.id} product={p} />
           ))}
         </div>
         <div className="mt-10 text-center">
           <Button asChild variant="outline" size="lg">
-            <Link to="/services">View all services</Link>
+            <Link to="/shop">View all products</Link>
           </Button>
         </div>
       </Section>
 
-      {/* Why */}
+      {/* Promotional Banner */}
+      <section className="py-16 md:py-24">
+        <div className="container-page">
+          <div className="relative overflow-hidden rounded-3xl">
+            <img
+              src={promoBanner}
+              alt="Two models wearing ISMAILIFY navy and violet pieces in a premium studio setting"
+              width={1600}
+              height={900}
+              className="h-[28rem] w-full object-cover md:h-[32rem]"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-navy/90 via-navy/50 to-transparent" />
+            <div className="absolute inset-0 flex items-center">
+              <div className="container-page max-w-xl px-6 text-white md:px-12">
+                <p className="eyebrow mb-4">Limited Release</p>
+                <h2 className="text-3xl leading-tight md:text-5xl">The Violet Edit.</h2>
+                <p className="mt-5 max-w-md text-base leading-relaxed text-white/80 md:text-lg">
+                  A seasonal capsule in deep navy and electric violet — designed for evenings that
+                  turn into memories.
+                </p>
+                <div className="mt-8 flex flex-wrap gap-3">
+                  <Button asChild size="lg">
+                    <Link to="/shop">Shop the Edit</Link>
+                  </Button>
+                  <Button
+                    asChild
+                    size="lg"
+                    variant="outline"
+                    className="border-white/25 bg-transparent text-white hover:bg-white/10 hover:text-white"
+                  >
+                    <Link to="/category/bags">Explore Bags</Link>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* New Arrivals */}
+      <Section>
+        <SectionHeading
+          eyebrow="Just Dropped"
+          title="New Arrivals"
+          text="Fresh silhouettes, new colourways, and the latest additions to the ISMAILIFY wardrobe."
+        />
+        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {newArrivals.map((p) => (
+            <ProductCard key={p.id} product={p} />
+          ))}
+        </div>
+      </Section>
+
+      {/* Why ISMAILIFY */}
       <Section muted>
         <SectionHeading
-          eyebrow="Why Ismailify"
-          title="Why Choose Ismailify"
-          text="A calm, professional process built around clarity, quality, and files that actually work on every platform."
+          eyebrow="Why ISMAILIFY"
+          title="Designed With Intent"
+          text="A wardrobe should feel considered, not complicated. Here's how we make that happen."
         />
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {WHY.map((w) => (
@@ -141,93 +218,37 @@ function Home() {
         </div>
       </Section>
 
-      {/* Process */}
-      <Section>
-        <SectionHeading
-          eyebrow="How It Works"
-          title="A Simple 5-Step Process"
-          text="Clear steps, agreed scope, and steady updates from first conversation to final delivery."
-        />
-        <ProcessSteps />
-      </Section>
-
-      {/* Portfolio */}
-      <Section muted>
-        <SectionHeading
-          eyebrow="Selected Work"
-          title="Featured Portfolio"
-          text="A sample of the kinds of eBook projects handled end to end."
-        />
-        <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {PORTFOLIO.slice(0, 6).map((p) => (
-            <article key={p.id} className="card-premium overflow-hidden">
-              <div className={`aspect-4/3 bg-gradient-to-br ${p.accent} p-8`}>
-                <div className="flex h-full items-end">
-                  <span className="font-display text-xl leading-snug text-white">{p.title}</span>
-                </div>
-              </div>
-              <div className="p-6">
-                <span className="eyebrow">{p.category}</span>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{p.summary}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-        <div className="mt-10 text-center">
-          <Button asChild variant="outline" size="lg">
-            <Link to="/portfolio">See full portfolio</Link>
-          </Button>
-        </div>
-      </Section>
-
-      {/* Testimonials */}
-      <Section>
-        <SectionHeading
-          eyebrow="Client Words"
-          title="Testimonials"
-          text="Genuine client reviews are added here as projects complete."
-        />
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {TESTIMONIALS.slice(0, 3).map((t) => (
-            <figure key={t.id} className="card-premium p-7">
-              <div className="flex gap-1 text-primary">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star key={i} className="h-4 w-4 fill-current" />
-                ))}
-              </div>
-              <blockquote className="mt-4 text-sm leading-relaxed text-muted-foreground">
-                “{t.quote}”
-              </blockquote>
-              <figcaption className="mt-5 text-sm font-semibold">
-                {t.name}
-                <span className="block text-xs font-normal text-muted-foreground">{t.role}</span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-        <div className="mt-10 text-center">
-          <Button asChild variant="outline" size="lg">
-            <Link to="/testimonials">Read all testimonials</Link>
-          </Button>
-        </div>
-      </Section>
-
-      {/* FAQ preview */}
-      <Section muted>
-        <SectionHeading
-          eyebrow="Questions"
-          title="Frequently Asked"
-          text="Quick answers to the questions authors ask most before starting."
-        />
-        <FaqAccordion items={FAQS.slice(0, 6)} />
-        <div className="mt-10 text-center">
-          <Button asChild variant="outline" size="lg">
-            <Link to="/faq">View all FAQs</Link>
-          </Button>
-        </div>
-      </Section>
-
-      <CTASection />
+      {/* Newsletter */}
+      <NewsletterSection />
     </>
+  );
+}
+
+function NewsletterSection() {
+  return (
+    <section className="surface-navy relative overflow-hidden py-20 md:py-28">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-32 -right-24 h-96 w-96 rounded-full bg-primary/25 blur-3xl"
+      />
+      <div className="container-page relative text-center">
+        <p className="eyebrow mb-4">Join the List</p>
+        <h2 className="mx-auto max-w-2xl text-3xl text-white md:text-4xl">
+          Private Releases & Early Access
+        </h2>
+        <p className="mx-auto mt-5 max-w-xl text-white/75">
+          Be the first to know about new arrivals, limited capsules, and member-only drops.
+        </p>
+        <div className="mx-auto mt-8 flex max-w-md flex-col gap-3 sm:flex-row">
+          <Button asChild size="lg" className="w-full sm:w-auto">
+            <Link to="/contact">Subscribe</Link>
+          </Button>
+        </div>
+        <div className="mt-8 flex items-center justify-center gap-2 text-sm text-white/60">
+          <Star className="h-4 w-4 fill-current text-primary" />
+          <span>Join 10,000+ style insiders</span>
+        </div>
+      </div>
+    </section>
   );
 }

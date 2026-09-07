@@ -3,50 +3,32 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Mail, Clock, MessageSquare } from "lucide-react";
 import { toast } from "sonner";
 
-import { Section, CTASection } from "@/components/site/Sections";
+import { Section } from "@/components/site/Sections";
 import { SocialLinks } from "@/components/site/Social";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { EMAIL } from "@/data/site";
-import { SERVICES } from "@/data/services";
+import { EMAIL, TAGLINE } from "@/data/site";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact Ismailify — Start Your eBook Project" },
+      { title: "Contact ISMAILIFY — Style. Confidence. Identity." },
       {
         name: "description",
         content:
-          "Tell Ismailify about your eBook project and receive a clear scope, timeline, and quote. Email ismaildigital929@gmail.com.",
+          "Get in touch with ISMAILIFY for order enquiries, styling advice, or collaboration. Email ismaildigital929@gmail.com.",
       },
-      { property: "og:title", content: "Contact Ismailify" },
-      { property: "og:description", content: "Let's bring your eBook idea to life." },
+      { property: "og:title", content: "Contact ISMAILIFY" },
+      { property: "og:description", content: "Reach out to the ISMAILIFY team." },
     ],
   }),
   component: Contact,
 });
 
-const BUDGETS = [
-  "Under $250",
-  "$250 – $500",
-  "$500 – $1,000",
-  "$1,000 – $2,500",
-  "$2,500+",
-  "Not sure yet",
-];
-
 function Contact() {
-  const [service, setService] = useState("");
-  const [budget, setBudget] = useState("");
+  const [subject, setSubject] = useState("");
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -59,18 +41,17 @@ function Contact() {
     const body = [
       `Name: ${name}`,
       `Email: ${email}`,
-      `Service: ${service || "Not specified"}`,
-      `Budget: ${budget || "Not specified"}`,
+      `Subject: ${subject || "General enquiry"}`,
       "",
-      "Project details:",
+      "Message:",
       details,
     ].join("\n");
 
     window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(
-      `New eBook project enquiry — ${name}`,
+      `ISMAILIFY enquiry — ${subject || "General"}`,
     )}&body=${encodeURIComponent(body)}`;
 
-    toast.success("Opening your email app with the project details prefilled.");
+    toast.success("Opening your email app with the enquiry prefilled.");
   }
 
   return (
@@ -83,11 +64,11 @@ function Contact() {
         <div className="container-page relative py-20 md:py-24">
           <p className="eyebrow mb-4">Contact</p>
           <h1 className="max-w-3xl text-4xl leading-[1.1] text-white md:text-5xl">
-            Let's Bring Your eBook Idea to Life.
+            Get in Touch With ISMAILIFY.
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-white/75 md:text-lg">
-            Share a few details about your project and you'll receive a clear scope, realistic
-            timeline, and an honest quote before any work begins.
+            Questions about an order, sizing, or a collaboration? Send a message and we'll get back
+            to you personally.
           </p>
         </div>
       </section>
@@ -95,7 +76,7 @@ function Contact() {
       <Section>
         <div className="grid gap-12 lg:grid-cols-[1.1fr_0.9fr]">
           <div className="card-premium p-8 md:p-10">
-            <h2 className="text-2xl">Tell me about your project</h2>
+            <h2 className="text-2xl">Send a message</h2>
             <form onSubmit={handleSubmit} className="mt-8 space-y-6">
               <div className="grid gap-6 sm:grid-cols-2">
                 <div className="space-y-2">
@@ -114,54 +95,29 @@ function Contact() {
                 </div>
               </div>
 
-              <div className="grid gap-6 sm:grid-cols-2">
-                <div className="space-y-2">
-                  <Label htmlFor="service">Service</Label>
-                  <Select value={service} onValueChange={setService}>
-                    <SelectTrigger id="service" className="w-full">
-                      <SelectValue placeholder="Select a service" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {SERVICES.map((s) => (
-                        <SelectItem key={s.slug} value={s.name}>
-                          {s.name}
-                        </SelectItem>
-                      ))}
-                      <SelectItem value="Complete Project">Complete Project</SelectItem>
-                      <SelectItem value="Not sure yet">Not sure yet</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="budget">Budget</Label>
-                  <Select value={budget} onValueChange={setBudget}>
-                    <SelectTrigger id="budget" className="w-full">
-                      <SelectValue placeholder="Select a range" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {BUDGETS.map((b) => (
-                        <SelectItem key={b} value={b}>
-                          {b}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
+              <div className="space-y-2">
+                <Label htmlFor="subject">Subject</Label>
+                <Input
+                  id="subject"
+                  value={subject}
+                  onChange={(e) => setSubject(e.target.value)}
+                  placeholder="Order enquiry, sizing help, collaboration..."
+                />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="details">Project Details</Label>
+                <Label htmlFor="details">Message</Label>
                 <Textarea
                   id="details"
                   name="details"
                   required
                   rows={6}
-                  placeholder="Topic, word count, current stage, deadline, and anything else that helps."
+                  placeholder="How can we help?"
                 />
               </div>
 
               <Button type="submit" size="lg" className="w-full sm:w-auto">
-                Send Project Details
+                Send Message
               </Button>
               <p className="text-xs text-muted-foreground">
                 Submitting opens your email client with the details prefilled, addressed to{" "}
@@ -185,14 +141,14 @@ function Contact() {
               <Clock className="h-6 w-6 text-primary" />
               <h3 className="mt-4 text-lg">Response time</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Enquiries are answered personally, usually within one business day.
+                Messages are answered personally, usually within one business day.
               </p>
             </div>
             <div className="card-premium p-8">
               <MessageSquare className="h-6 w-6 text-primary" />
               <h3 className="mt-4 text-lg">Connect on social</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                Prefer messaging? Reach out on any platform below.
+                Follow ISMAILIFY for new arrivals and styling notes.
               </p>
               <SocialLinks className="mt-5" />
             </div>
@@ -200,10 +156,17 @@ function Contact() {
         </div>
       </Section>
 
-      <CTASection
-        title="Not sure which service you need?"
-        text="Describe where your manuscript is today and you'll get an honest recommendation — even if it's a smaller service than you expected."
-      />
+      <section className="surface-navy relative overflow-hidden py-20 md:py-24">
+        <div className="container-page text-center">
+          <p className="eyebrow mb-3">{TAGLINE}</p>
+          <h2 className="mx-auto max-w-2xl text-3xl text-white md:text-4xl">
+            Ready to Elevate Your Everyday Style?
+          </h2>
+          <Button asChild size="lg" className="mt-8">
+            <a href={`mailto:${EMAIL}`}>Email Us</a>
+          </Button>
+        </div>
+      </section>
     </>
   );
 }
