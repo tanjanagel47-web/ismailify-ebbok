@@ -1,22 +1,23 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 
-import { PageHero, Section, SectionHeading, CTASection } from "@/components/site/Sections";
+import { PageHero, Section, SectionHeading } from "@/components/site/Sections";
 import { SocialLinks } from "@/components/site/Social";
-import { WHY } from "@/data/site";
+import { Button } from "@/components/ui/button";
+import { WHY, TAGLINE } from "@/data/site";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Ismailify — eBook Expert & Ghostwriter" },
+      { title: "About ISMAILIFY — Style. Confidence. Identity." },
       {
         name: "description",
         content:
-          "Ismailify helps authors, entrepreneurs, coaches, and businesses turn ideas and manuscripts into polished professional eBooks.",
+          "ISMAILIFY is a modern menswear brand built around considered design, premium materials, and a wardrobe that works together.",
       },
-      { property: "og:title", content: "About Ismailify" },
+      { property: "og:title", content: "About ISMAILIFY" },
       {
         property: "og:description",
-        content: "An eBook expert focused on clarity, quality, and reader-ready books.",
+        content: "Modern menswear designed with intent. Style. Confidence. Identity.",
       },
     ],
   }),
@@ -25,24 +26,24 @@ export const Route = createFileRoute("/about")({
 
 const BLOCKS = [
   {
-    title: "Who I Am",
-    body: "I'm Ismail — the person behind Ismailify, a professional eBook service built around one idea: good ideas deserve books that people actually finish. I work directly with the people I write, edit, and design for, so nothing gets lost in handovers or templates.",
+    title: "Who We Are",
+    body: "ISMAILIFY is a modern menswear brand built on a simple belief: the right clothes should make the day feel easier. Every piece is designed in-house with proportions, fabric, and finish considered from the first sketch.",
   },
   {
-    title: "What I Do",
-    body: "I help authors, entrepreneurs, coaches, businesses, creators, and individuals turn ideas and manuscripts into polished professional eBooks. That covers writing and ghostwriting, developmental and line editing, proofreading, formatting for Kindle, EPUB and PDF, cover design, conversion, and publishing preparation.",
+    title: "What We Make",
+    body: "A focused collection of shirts, trousers, shoes, belts, caps, and bags — each designed to sit together as one coherent wardrobe. No noise, no trends that expire in a season.",
   },
   {
-    title: "My Approach",
-    body: "Every project starts with understanding your reader, not just your topic. Scope, structure, and timeline are agreed up front, work happens in visible stages, and revisions are built in. You always know what is being done, why, and when it lands.",
+    title: "Our Approach",
+    body: "We start with the material, then the fit, then the detail. Each design goes through rounds of sampling until it feels right on the body and holds up over time.",
   },
   {
-    title: "Why Ismailify",
-    body: "Most authors end up stitching together several freelancers and hoping the pieces fit. Ismailify keeps the whole journey in one place, with one consistent standard — so the writing, editing, layout, cover, and final files all belong to the same book.",
+    title: "Why ISMAILIFY",
+    body: "Premium doesn't have to mean complicated. We offer clear pricing, free delivery over $150, and a 30-day return window — so you can shop with confidence.",
   },
   {
-    title: "My Mission",
-    body: "To make professional publishing accessible to people with something worth saying — producing eBooks that read well, look premium, and are technically ready for every major platform.",
+    title: "Our Mission",
+    body: "To build a wardrobe that earns its place — pieces that feel considered, fit well, and look better the more you wear them.",
   },
 ];
 
@@ -51,8 +52,8 @@ function About() {
     <>
       <PageHero
         eyebrow="About"
-        title="A professional eBook expert for people with something worth publishing."
-        text="Ismailify exists to take ideas, notes, and half-finished manuscripts and turn them into books readers finish and recommend."
+        title="Style. Confidence. Identity."
+        text="ISMAILIFY is a modern menswear brand designing shirts, trousers, shoes, belts, caps, and bags that work together as one wardrobe."
       />
 
       <Section>
@@ -68,9 +69,9 @@ function About() {
 
       <Section muted>
         <SectionHeading
-          eyebrow="Working Together"
-          title="What you can expect"
-          text="The standards that apply to every Ismailify project, regardless of size."
+          eyebrow="The ISMAILIFY Standard"
+          title="What You Can Expect"
+          text="The principles behind every piece we release."
         />
         <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {WHY.map((w) => (
@@ -84,15 +85,17 @@ function About() {
 
       <Section>
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-2xl">Connect with Ismailify</h2>
+          <p className="eyebrow mb-3">{TAGLINE}</p>
+          <h2 className="text-2xl">Connect With ISMAILIFY</h2>
           <p className="mt-3 text-muted-foreground">
-            Follow along for eBook tips, project updates, and publishing insights.
+            Follow along for new arrivals, styling notes, and behind-the-scenes drops.
           </p>
           <SocialLinks className="mt-6 justify-center" />
+          <Button asChild size="lg" className="mt-8">
+            <Link to="/contact">Get in Touch</Link>
+          </Button>
         </div>
       </Section>
-
-      <CTASection />
     </>
   );
 }
